@@ -33,7 +33,7 @@ function addOnScreen(nbr) {
     number += nbr;
 
     if (digit == ".") {
-        oldScreen = screen.innerHTML;
+        oldScreen = screen.innerHTML; // saves how the screen is visually before the "." was added in case the "." was a mistake so it can later be removed
     }
 
     if (!numberTyped) {
