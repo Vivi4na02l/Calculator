@@ -97,3 +97,17 @@ function equationResult() {
     // calculates the result of the string with "eval()" and displays it on the screen
     screen.innerHTML += "=" + eval(finalEquation)
 }
+
+/**
+ * restarts the entire calculator logic and cleans the screen
+ */
+function AC() {
+    screen.innerHTML = "_"
+
+    numberTyped = false;
+    symbolTyped = false;
+    digit;
+    number = '';
+    symbol;
+    equation = [];
+}
