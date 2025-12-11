@@ -1,0 +1,24 @@
+body {
+    display: flex;
+    justify-content: center;
+}
+
+main {
+    width: 50%;
+    height: 90vh;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.btn, #screen {
+    padding: 20px;
+    margin: 2px;
+}
+
+#screen {
+    display: flex;
+    align-items: center;
+    background-color: #c5cce6;
+}
