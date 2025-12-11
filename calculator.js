@@ -82,6 +82,10 @@ function equationSymbol(txtSymbol, eSymbol) {
  * calculates the final result of the equation
  */
 function equationResult() {
+    if (digit == ".") {
+        screen.innerHTML = oldScreen; // if the "." was added with no follow-up number, it gets rid of the "."
+    }
+
     if (symbolTyped) {
         screen.innerHTML = oldScreen; // makes the screen.innerHTML be equal to what it was before symbols were added after the last number
     } else {
