@@ -6,8 +6,7 @@ let oldScreen;
 
 let number = '';
 let symbol;
-let numbers = [];
-let equationSymbols = [];
+let equation = [];
 
 /**
  * when any of the numbers' buttons are clicked...
@@ -18,7 +17,7 @@ for (const btnNumber of btnsNumber) {
 
         if (symbolTyped) {
             symbolTyped = false;
-            equationSymbols.push(symbol);
+            equation.push(symbol);
         }
     })
 }
@@ -42,16 +41,17 @@ function addOnScreen(nbr) {
 /**
  * adds symbol to the screen and allows the user to switch between symbols before adding a new number to the screen
  * @param {*} txtSymbol the symbol as a text to be added visually on the screen
- * @param {*} equation the actual meaning of the symbol that is used logically
+ * @param {*} eSymbol the actual meaning of the symbol that is used logically
  */
-function equationSymbol(txtSymbol, equation) {
+function equationSymbol(txtSymbol, eSymbol) {
     if (numberTyped) {
-        if (equation == "equal") {
+        if (eSymbol == "equal") {
             equationResult();
         } else {
             // if a symbol hasn't yet been clicked after the last number...
             if (!symbolTyped) {
-                numbers.push(number);
+                equation.push(number);
+                number = '';
 
                 oldScreen = screen.innerHTML; // registers the screen.innerHTML before adding the symbol
         
@@ -59,8 +59,8 @@ function equationSymbol(txtSymbol, equation) {
             }
         
             if (symbolTyped) {
-                symbol = equation;
-                screen.innerHTML = oldScreen; // makes the screen.inner be equal to what it was before symbols were added after the last number
+                symbol = eSymbol;
+                screen.innerHTML = oldScreen; // makes the screen.innerHTML be equal to what it was before symbols were added after the last number
                 screen.innerHTML += txtSymbol; // adds symbol
             }
         }
@@ -68,5 +68,16 @@ function equationSymbol(txtSymbol, equation) {
 }
 
 function equationResult() {
-    
+    if (symbolTyped) {
+        screen.innerHTML = oldScreen; // makes the screen.innerHTML be equal to what it was before symbols were added after the last number
+    } else {
+        equation.push(number);
+    }
+
+    let finalEquation = '';
+    for (const value of equation) {
+        finalEquation += value
+    }
+
+    console.log(eval(finalEquation));
 }
