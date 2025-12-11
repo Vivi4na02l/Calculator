@@ -4,6 +4,7 @@ let numberTyped = false;
 let symbolTyped = false;
 let oldScreen;
 
+let digit;
 let number = '';
 let symbol;
 let equation = [];
@@ -13,6 +14,8 @@ let equation = [];
  */
 for (const btnNumber of btnsNumber) {
     btnNumber.addEventListener("click", () => {
+        digit = btnNumber.innerHTML;
+
         addOnScreen(btnNumber.innerHTML);
 
         if (symbolTyped) {
@@ -28,6 +31,10 @@ for (const btnNumber of btnsNumber) {
  */
 function addOnScreen(nbr) {
     number += nbr;
+
+    if (digit == ".") {
+        oldScreen = screen.innerHTML;
+    }
 
     if (!numberTyped) {
         numberTyped = true;
@@ -48,6 +55,10 @@ function equationSymbol(txtSymbol, eSymbol) {
         if (eSymbol == "equal") {
             equationResult();
         } else {
+            if (digit == ".") {
+                screen.innerHTML = oldScreen; // if the "." was added with no follow-up number, it gets rid of the "."
+            }
+
             // if a symbol hasn't yet been clicked after the last number...
             if (!symbolTyped) {
                 equation.push(number);
@@ -67,6 +78,9 @@ function equationSymbol(txtSymbol, eSymbol) {
     }
 }
 
+/**
+ * calculates the final result of the equation
+ */
 function equationResult() {
     if (symbolTyped) {
         screen.innerHTML = oldScreen; // makes the screen.innerHTML be equal to what it was before symbols were added after the last number
@@ -74,10 +88,12 @@ function equationResult() {
         equation.push(number);
     }
 
+    // converts the entire array of numbers and equation's symbols into a string that javascript can convert and calculate its result
     let finalEquation = '';
     for (const value of equation) {
         finalEquation += value
     }
 
-    console.log(eval(finalEquation));
+    // calculates the result of the string with "eval()" and displays it on the screen
+    screen.innerHTML += "=" + eval(finalEquation)
 }
